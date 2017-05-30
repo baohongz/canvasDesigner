@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>canvasDesigner</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>canvasDesigner</title>
 
-    <link rel="stylesheet" href="dist/bootstrap.min.css">
-    <link rel="stylesheet" href="dist/gridstack.css"/>
-    <link rel="stylesheet" href="dist/trash.css"/>
+	<link rel="stylesheet" href="dist/bootstrap.min.css">
+	<link rel="stylesheet" href="dist/gridstack.css"/>
+	<link rel="stylesheet" href="dist/trash.css"/>
 	<link rel="stylesheet" href="dist/dropzone.css">
 
-    <script src="dist/jquery.min.js"></script>
-    <script src="dist/jquery-ui.min.js"></script>
-    <script src="dist/bootstrap.min.js"></script>
-    <script src="dist/lodash.min.js"></script>
-    <script src="dist/gridstack.js"></script>
-    <script src="dist/gridstack.jQueryUI.js"></script>
-	<script src="dist/dropzone.min.js"></script>
+	<script src="dist/jquery.min.js"></script>
+	<script src="dist/jquery-ui.min.js"></script>
+	<script src="dist/bootstrap.min.js"></script>
+	<script src="dist/lodash.min.js"></script>
+	<script src="dist/gridstack.js"></script>
+	<script src="dist/gridstack.jQueryUI.js"></script>
+	<script src="dist/dropzone.js"></script>
 	<script src="dist/svg-pan-zoom.js"></script>
 
-    <style type="text/css">
+	<style type="text/css">
 		.dropzone {
-		    background: white;
-		    border-radius: 5px;
+			background: white;
+			border-radius: 5px;
 			padding: 10px 20px;
-		    border: 2px dashed rgb(0, 135, 247);
-		    border-image: none;
-		    max-width: 200px;
+			border: 2px dashed rgb(0, 135, 247);
+			border-image: none;
+			max-width: 200px;
 			height: 200px;
-		    margin-left: auto;
-		    margin-right: auto;
+			margin-left: auto;
+			margin-right: auto;
 		}
 
 		.trash {
-    		height: 160px;
+			height: 160px;
 		}
 
 		.grid-stack .grid-stack-item .grid-stack-item-content,
 		.grid-stack .grid-stack-item .placeholder-content {
-		    left: 0px;
-		    right: 0px;
+			left: 0px;
+			right: 0px;
 			padding: 0px;
 			overflow: hidden;
 		}
 
 		.grid-stack {
-            background: lightgoldenrodyellow;
-//            background: white;
-        }
+			background: lightgoldenrodyellow;
+//			background: white;
+		}
 
-        .grid-stack-item-content {
+		.grid-stack-item-content {
 			background: lightblue;
-            text-align: center;
-        }
+			text-align: center;
+		}
 	
 		@media print {
 			.svg-pan-zoom-control {display: none;}
-    		.no-print {display: none;}
+			.no-print {display: none;}
 			#dragHandle {display: none;}
 		}
 
 		#dragHandle {
-            z-index: 90; width:16px; height: 16px; border-bottom: 0px solid #44c756;
-            border-left: 0px solid #44c765; position: absolute;
-            right: 0px; top: 0px; cursor: move;
+			z-index: 90; width:16px; height: 16px; border-bottom: 0px solid #44c756;
+			border-left: 0px solid #44c765; position: absolute;
+			right: 0px; top: 0px; cursor: move;
 			background-image: url("dist/move.png");
 		}
-    </style>
+	</style>
 </head>
 
 <body>
@@ -107,6 +107,7 @@
 		Dropzone.options.dropzoneUpload = {
 			maxFiles:1,
 			maxFilesize:50,
+			withCredentials: true,
 			addRemoveLinks:true,
 
 			init:function(){
@@ -114,10 +115,10 @@
 					this.removeAllFiles();
 					this.addFile(file);
 				});
-      			this.on("success", function(file) {
+	  			this.on("success", function(file) {
 					myFile = file;
 //console.log(myFile);
-      			});
+	  			});
 			}
 		}
 
@@ -154,6 +155,7 @@
 
 		this.addNewWidget = function () {
 			var images = myFile.previewElement.querySelectorAll("[data-dz-thumbnail]");
+console.log(myFile);
 			imageId = "image"+num; 
 			var svg = atob(images["0"].currentSrc.replace(/^data:image\/.*;base64,/, ""));
 
