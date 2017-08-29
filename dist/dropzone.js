@@ -1383,10 +1383,10 @@
     };
 
     Dropzone.prototype.submitRequest = function(xhr, formData, files) {
-console.log(xhr);
-console.log(formData);
-console.log(files);
-      
+//console.log(xhr);
+//console.log(formData);
+//console.log(files);
+// Baohong: Use in-memory content, don't send data 
       return this._finished(files, "Get File");
       return xhr.send(formData);
     };
@@ -1396,7 +1396,7 @@ console.log(files);
       for (_i = 0, _len = files.length; _i < _len; _i++) {
         file = files[_i];
         file.status = Dropzone.SUCCESS;
-console.log(file);
+//console.log(file);
         this.emit("success", file, responseText, e);
         this.emit("complete", file);
       }
