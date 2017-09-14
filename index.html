@@ -28,13 +28,16 @@
 		.dropzone {
 			background: white;
 			border-radius: 5px;
-			padding: 10px 20px;
+			padding: 0px 10px;
 			border: 2px dashed rgb(0, 135, 247);
 			border-image: none;
 			max-width: 200px;
-			height: 200px;
+			height: 180px;
 			margin-left: auto;
 			margin-right: auto;
+		}
+		.dropzone .dz-message {
+    			margin: 1em 0;
 		}
 
 		.trash {
@@ -79,8 +82,9 @@
 	<div class="row no-print">
 		<div align=center class="col-xs-4">
 			<FORM class="dropzone needsclick" id="dropzoneUpload" action="/">
-			<div class="dz-message needsclick">Drop a SVG file here or click to upload. "Add Plot" to add to the designing canvas. Note: use Inkscape to convert PNG, JPG, GIF, TIFF to SVG.</div>
+			<div class="dz-message needsclick">Drop a SVG file here or click to upload. Then click "Add Plot" to add to the designing canvas. Note: use Inkscape to convert PNG, JPG, GIF, TIFF to SVG format.</div>
 			</FORM>
+			<a href=SVG>Sample SVG files</a>
 		</div>
 		<div align=center class="col-xs-4">
 			<table border=0>
@@ -183,7 +187,8 @@ console.log(hm);
 			}
 //console.log(node);
 
-			var el = this.grid.addWidget($('<div><div class="grid-stack-item-content col-xs-4"><div align="left" contenteditable="true"  onclick="this.focus\(\);">Edit</div><div id="'+imageId+'_container" style="width: 100%; height: 100%; ">'+svg+'</div></div><div id="dragHandle"></div></div>'), node.x, node.y, node.width, node.height); 
+			var figureTitle = imageId+"_title";
+			var el = this.grid.addWidget($('<div><div class="grid-stack-item-content col-xs-4"><div id='+figureTitle+' align="left" contenteditable="true"  onclick="this.focus\(\);">Edit</div><div id="'+imageId+'_container" style="width: 100%; height: 100%; ">'+svg+'</div></div><div id="dragHandle"></div></div>'), node.x, node.y, node.width, node.height); 
 
 			el.draggable({ handle: "#dragHandle" });
 //console.log(el);
