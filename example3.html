@@ -25,6 +25,7 @@
 	<script src="dist/svg-pan-zoom.js"></script>
 
 	<style type="text/css">
+
 		.dropzone {
 			background: white;
 			border-radius: 5px;
@@ -53,26 +54,24 @@
 		}
 
 		.grid-stack {
-			background: lightgoldenrodyellow;
+			background: lightgoldenrodyellow !important;
 //			background: white;
 		}
 
 		.grid-stack-item-content {
-			background: lightblue;
+			background: lightblue !important;
 			text-align: center;
 		}
 	
 		@media print {
-			.svg-pan-zoom-control {display: none;}
 			.no-print {display: none;}
-			#dragHandle {display: none;}
 		}
 
 		#dragHandle {
 			z-index: 90; width:16px; height: 16px; border-bottom: 0px solid #44c756;
 			border-left: 0px solid #44c765; position: absolute;
 			right: 0px; top: 0px; cursor: move;
-			background-image: url("dist/move.png");
+			background-image: url("dist/move.png") !important;
 		}
 	</style>
 </head>
