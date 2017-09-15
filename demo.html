@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>canvasDesigner</title>
+
+	<link rel="stylesheet" href="dist/bootstrap.min.css">
+	<link rel="stylesheet" href="dist/gridstack.css"/>
+	<link rel="stylesheet" href="dist/trash.css"/>
+	<link rel="stylesheet" href="dist/dropzone.css">
+
+	<script src="dist/jquery.min.js"></script>
+	<script src="dist/jquery-ui.min.js"></script>
+	<script src="dist/bootstrap.min.js"></script>
+	<script src="dist/lodash.min.js"></script>
+	<script src="dist/gridstack.js"></script>
+	<script src="dist/gridstack.jQueryUI.js"></script>
+	<script src="dist/dropzone.js"></script>
+	<script src="dist/svg-pan-zoom.js"></script>
+
+	<style type="text/css">
+		.dropzone {
+			background: white;
+			border-radius: 5px;
+			padding: 0px 10px;
+			border: 2px dashed rgb(0, 135, 247);
+			border-image: none;
+			max-width: 200px;
+			height: 180px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		.dropzone .dz-message {
+    			margin: 1em 0;
+		}
+
+		.trash {
+			height: 160px;
+		}
+
+		.grid-stack .grid-stack-item .grid-stack-item-content,
+		.grid-stack .grid-stack-item .placeholder-content {
+			left: 0px;
+			right: 0px;
+			padding: 0px;
+			overflow: hidden;
+		}
+
+		.grid-stack {
+			background: lightgoldenrodyellow;
+//			background: white;
+		}
+
+		.grid-stack-item-content {
+			background: lightblue;
+			text-align: center;
+		}
+	
+		@media print {
+			.svg-pan-zoom-control {display: none;}
+			.no-print {display: none;}
+			#dragHandle {display: none;}
+		}
+
+		#dragHandle {
+			z-index: 90; width:16px; height: 16px; border-bottom: 0px solid #44c756;
+			border-left: 0px solid #44c765; position: absolute;
+			right: 0px; top: 0px; cursor: move;
+			background-image: url("dist/move.png");
+		}
+	</style>
+</head>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div align=center class="col-xs-4">
+			<FORM class="dropzone needsclick" id="dropzoneUpload" action="/">
+			<div class="dz-message needsclick">Drop a SVG file here or click to upload. Then click "Add Plot" to add to the designing canvas. Note: use Inkscape to convert PNG, JPG, GIF, TIFF to SVG format.</div>
+			</FORM>
+			<a href=example1.html>Example1</a> <a href=example2.html>Example2</a>
+		</div>
+		<div align=center class="col-xs-4">
+			<table border=0>
+			<tr>
+			<td><a class="btn btn-default" id="add-new-Plot">Add Plot</a></td>
+			<td><a class="btn btn-default" id="add-new-Control">Add Control</a></td>
+			</tr>
+			<tr>
+			<td style="padding-top: 8px;" colspan=2><div class="trash"></div></td>
+			</tr>
+			</table>
+		</div>
+		<div align=center class="col-xs-4"><img width=240 height=200 src=canvasDesigner_help.png></img></div>
+	</div> 
+	<div class="row"> <div class="grid-stack">
+	</div></div>
+</div>
+
+
+<script type="text/javascript">
+	$(function () {
+		var myFile;
+		var num = 1;
+		var imageId;
+		Dropzone.options.dropzoneUpload = {
+			maxFiles:1,
+			maxFilesize:50,
+			withCredentials: true,
+			addRemoveLinks:true,
+
+			init:function(){
+				this.on("maxfilesexceeded",function(file){
+					this.removeAllFiles();
+					this.addFile(file);
+				});
+	  			this.on("success", function(file) {
+					myFile = file;
+//console.log(myFile);
+	  			});
+			}
+		}
+
+		var options = {
+			removable: '.trash',
+			removeTimeout: 100,
+			minWidth: 200,
+			verticalMargin: 10,
+			resizable: { handles: 'se, sw' },
+			always_show_resize_handle: true,
+			float: true
+		};
+
+		this.items = [
+			{x: 6, y: 9, width: 3, height: 3},
+			{x: 3, y: 9, width: 3, height: 3},
+			{x: 0, y: 9, width: 3, height: 3},
+			{x: 6, y: 6, width: 3, height: 3},
+			{x: 3, y: 6, width: 3, height: 3},
+			{x: 0, y: 6, width: 3, height: 3},
+			{x: 6, y: 3, width: 3, height: 3},
+			{x: 3, y: 3, width: 3, height: 3},
+			{x: 0, y: 3, width: 3, height: 3},
+			{x: 6, y: 0, width: 3, height: 3},
+			{x: 3, y: 0, width: 3, height: 3},
+			{x: 0, y: 0, width: 3, height: 3}
+		];
+
+		$('.grid-stack').gridstack(options);
+
+		this.grid = $('.grid-stack').data('gridstack');
+		this.grid.enableMove(false, false);
+
+
+		this.addNewWidget = function () {
+			var images = myFile.previewElement.querySelectorAll("[data-dz-thumbnail]");
+console.log(myFile);
+			imageId = "image"+num; 
+			var svg = atob(images["0"].currentSrc.replace(/^data:image\/.*;base64,/, ""));
+
+			svg.match(/width="(\d+)/);
+			var wm = RegExp.$1;
+
+			svg.match(/height="(\d+)/);
+			var hm = RegExp.$1;
+
+console.log(hm);
+			svg = svg.replace(/.*<svg[^>]+>/, '<svg id="'+imageId+'" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " width="'+wm+'" height="'+hm+'" viewBox="0 0 '+wm+' '+hm+'"  version="1.1">');
+			svg = svg.replace(/<g +id=\"svg-pan-zoom-controls\".+/, '<\/svg>');
+			svg = svg.replace(/<g[^>]+svg-pan-zoom_viewport[^>]+>/, '');
+
+//console.log(svg);
+
+			num += 1;
+
+
+			var node = this.items.pop();
+
+			if (node == null) {
+				node =  { x: 6 * Math.random(), y: 4 * Math.random(), width: 3, height: 3 };
+			}
+//console.log(node);
+
+			var figureTitle = imageId+"_title";
+			var el = this.grid.addWidget($('<div><div class="grid-stack-item-content col-xs-4"><div id='+figureTitle+' align="left" contenteditable="true"  onclick="this.focus\(\);">Edit</div><div id="'+imageId+'_container" style="width: 100%; height: 100%; ">'+svg+'</div></div><div id="dragHandle"></div></div>'), node.x, node.y, node.width, node.height); 
+
+			el.draggable({ handle: "#dragHandle" });
+//console.log(el);
+
+			return false;
+		}.bind(this);
+
+		$('#add-new-Plot').click(this.addNewWidget);
+
+		$('#add-new-Control').click( function () {
+			for (var i=1; i<num; i++) {
+				var myImg = "image"+i;
+				if (document.getElementById(myImg) == null) {
+					continue;
+				}
+
+				if (document.getElementById(myImg).getElementById("svg-pan-zoom-controls") !== null) {
+					continue;
+				}
+
+//console.log(myImg);
+
+				svgPanZoom('#'+myImg, {
+					zoomEnabled:true,
+					minZoom:0.1,
+					fit:true,
+					center:true,
+					controlIconsEnabled:true
+				});
+			}
+		});
+	});
+
+</script>
+
+</body>
+</html>
