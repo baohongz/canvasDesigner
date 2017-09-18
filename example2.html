@@ -8238,6 +8238,10 @@ bzOlmHKXCsJ8AAAAAElFTkSuQmCC
 	  			this.on("success", function(file) {
 					myFile = file;
 //console.log(myFile);
+					var img = $(file.previewTemplate).find("img");
+// console.log(img);
+					img[0].width = 120;
+					img[0].height = 120;
 	  			});
 			}
 		}
@@ -8253,14 +8257,14 @@ bzOlmHKXCsJ8AAAAAElFTkSuQmCC
 		};
 
 		this.items = [
-			{x: 0, y: 3, width: 2, height: 3},
-			{x: 4, y: 0, width: 4, height: 6},
-			{x: 8, y: 0, width: 2, height: 3},
-			{x: 8, y: 3, width: 2, height: 3},
-			{x: 0, y: 0, width: 4, height: 3},
+			{x: 9, y: 6, width: 3, height: 3},
+			{x: 9, y: 6, width: 3, height: 3},
+			{x: 9, y: 6, width: 3, height: 3},
+			{x: 9, y: 6, width: 3, height: 3},
+			{x: 9, y: 6, width: 3, height: 3},
+			{x: 6, y: 6, width: 3, height: 3},
+			{x: 3, y: 6, width: 3, height: 3},
 			{x: 0, y: 6, width: 3, height: 3},
-			{x: 2, y: 3, width: 2, height: 3},
-			{x: 0, y: 0, width: 4, height: 3},
 			{x: 2, y: 3, width: 3, height: 3},
 			{x: 0, y: 3, width: 2, height: 3},
 			{x: 5, y: 0, width: 3, height: 6},

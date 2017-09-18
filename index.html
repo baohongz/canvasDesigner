@@ -124,6 +124,9 @@
 	  			this.on("success", function(file) {
 					myFile = file;
 //console.log(myFile);
+					var img = $(file.previewTemplate).find("img");
+					img[0].width = 120;
+					img[0].height = 120;
 	  			});
 			}
 		}
@@ -161,7 +164,7 @@
 
 		this.addNewWidget = function () {
 			var images = myFile.previewElement.querySelectorAll("[data-dz-thumbnail]");
-console.log(myFile);
+//console.log(myFile);
 			imageId = "image"+num; 
 			var svg = atob(images["0"].currentSrc.replace(/^data:image\/.*;base64,/, ""));
 
@@ -171,13 +174,13 @@ console.log(myFile);
 			svg.match(/height="(\d+)/);
 			var hm = RegExp.$1;
 
-console.log(hm);
+//console.log(hm);
 			svg = svg.replace(/.*<svg[^>]+>/, '<svg xmlns="http://www.w3.org/2000/svg" id="'+imageId+'" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " width="'+wm+'" height="'+hm+'" viewBox="0 0 '+wm+' '+hm+'"  version="1.1">');
 			svg = svg.replace(/<g +id=\"svg-pan-zoom-controls\".+/, '<\/svg>');
 			svg = svg.replace(/<g[^>]+svg-pan-zoom_viewport[^>]+>/, '');
 			svg = svg.replace(/clipPath id=\"/ig, 'clipPath id=\"'+num);
 
-console.log(svg);
+//console.log(svg);
 
 			num += 1;
 

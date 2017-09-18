@@ -150,6 +150,10 @@
 	  			this.on("success", function(file) {
 					myFile = file;
 //console.log(myFile);
+					var img = $(file.previewTemplate).find("img");
+// console.log(img);
+					img[0].width = 120;
+					img[0].height = 120;
 	  			});
 			}
 		}
