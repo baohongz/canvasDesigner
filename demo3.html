@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://canvasxpress.org/css/canvasXpress.css" type="text/css"/>
+    <script type="text/javascript" src="https://canvasxpress.org/js/canvasXpress.min.js"></script>
+    <script>
+      var initPage = function () {        
+        var data = {"y": {"vars": ["Gene1"],
+                          "smps": ["Smp1", "Smp2", "Smp3"],
+                          "data": [[10, 35,88]]
+                         }};
+        var conf = {"graphType": "Bar"};                 
+        var cX = new CanvasXpress("canvasId", data, conf);
+      }
+    </script>
+  </head>
+  <body onload="initPage();">
+    <canvas  id="canvasId" width="540" height="540"></canvas>
+  </body>
+</html>
