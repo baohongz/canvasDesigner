@@ -1,0 +1,27 @@
+.grid-stack .grid-stack-item .grid-stack-item-content,
+.grid-stack .grid-stack-item .placeholder-content {
+	left: 0px;
+	right: 0px;
+	padding: 0px;
+	overflow: hidden;
+}
+
+.grid-stack {
+	background: white;
+}
+
+.grid-stack-item-content {
+	background: white;
+	text-align: center;
+}
+
+.svg-pan-zoom-control {display: none;}
+.no-print {display: none;}
+#dragHandle {display: none;}
+
+#dragHandle {
+	z-index: 90; width:16px; height: 16px; border-bottom: 0px solid #44c756;
+	border-left: 0px solid #44c765; position: absolute;
+	right: 0px; top: 0px; cursor: move;
+	background-image: url("move.png");
+}

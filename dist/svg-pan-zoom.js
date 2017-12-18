@@ -63,7 +63,7 @@ module.exports = {
 , _createZoomIn: function(instance) {
     var zoomIn = document.createElementNS(SvgUtils.svgNS, 'g');
     zoomIn.setAttribute('id', 'svg-pan-zoom-zoom-in');
-    zoomIn.setAttribute('transform', 'translate('+(45.5 - instance.width)+' -160) scale(0.015)');  //Baohong: changed the postion of controls
+    zoomIn.setAttribute('transform', 'translate(30.5 5) scale(0.015)');
     zoomIn.setAttribute('class', 'svg-pan-zoom-control');
     zoomIn.addEventListener('click', function() {instance.getPublicInstance().zoomIn()}, false)
     zoomIn.addEventListener('touchstart', function() {instance.getPublicInstance().zoomIn()}, false)
@@ -88,7 +88,7 @@ module.exports = {
     // reset
     var resetPanZoomControl = document.createElementNS(SvgUtils.svgNS, 'g');
     resetPanZoomControl.setAttribute('id', 'svg-pan-zoom-reset-pan-zoom');
-    resetPanZoomControl.setAttribute('transform', 'translate('+(20-instance.width)+' -130) scale(0.4)');
+    resetPanZoomControl.setAttribute('transform', 'translate(5 35) scale(0.4)');
     resetPanZoomControl.setAttribute('class', 'svg-pan-zoom-control');
     resetPanZoomControl.addEventListener('click', function() {instance.getPublicInstance().reset()}, false);
     resetPanZoomControl.addEventListener('touchstart', function() {instance.getPublicInstance().reset()}, false);
@@ -115,10 +115,10 @@ module.exports = {
   }
 
 , _createZoomOut: function(instance){
-    // Baohong:  zoom out
+    // zoom out
     var zoomOut = document.createElementNS(SvgUtils.svgNS, 'g');
     zoomOut.setAttribute('id', 'svg-pan-zoom-zoom-out');
-    zoomOut.setAttribute('transform', 'translate('+(45.5 - instance.width)+' -95) scale(0.015)');
+    zoomOut.setAttribute('transform', 'translate(30.5 70) scale(0.015)');
     zoomOut.setAttribute('class', 'svg-pan-zoom-control');
     zoomOut.addEventListener('click', function() {instance.getPublicInstance().zoomOut()}, false);
     zoomOut.addEventListener('touchstart', function() {instance.getPublicInstance().zoomOut()}, false);
