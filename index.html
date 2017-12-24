@@ -10,20 +10,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>canvasDesigner</title>
 
-	<link rel="stylesheet" href="dist/bootstrap.min.css">
-	<link rel="stylesheet" href="dist/gridstack.css"/>
-	<link rel="stylesheet" href="dist/trash.css"/>
-	<link rel="stylesheet" href="dist/dropzone.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.css"/>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/trash.css"/>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/dropzone.css">
 
-	<script src="dist/jquery.min.js"></script>
-	<script src="dist/jquery-ui.min.js"></script>
-	<script src="dist/bootstrap.min.js"></script>
-	<script src="dist/lodash.min.js"></script>
-	<script src="dist/gridstack.js"></script>
-	<script src="dist/gridstack.jQueryUI.js"></script>
-	<script src="dist/dropzone.js"></script>
-	<script src="dist/svg-pan-zoom.js"></script>
-	<script src="dist/FileSaver.min.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/jquery.min.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/jquery-ui.min.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/bootstrap.min.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/lodash.min.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.jQueryUI.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/dropzone.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/svg-pan-zoom.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/FileSaver.min.js"></script>
 
 	<style type="text/css">
 		.dropzone {
@@ -74,7 +74,7 @@
 			z-index: 90; width:16px; height: 16px; border-bottom: 0px solid #44c756;
 			border-left: 0px solid #44c765; position: absolute;
 			right: 0px; top: 0px; cursor: move;
-			background-image: url("dist/move.png");
+			background-image: url("https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/move.png");
 		}
 	</style>
 </head>
@@ -101,9 +101,9 @@
 		<div align=center class="col-xs-4">
 			<div class="trash"></div>
 		</div>
-		<div align=center class="col-xs-4"><img width=240 height=200 src=canvasDesigner_help.png></div>
+		<div align=center class="col-xs-4"><img width=240 height=200 src=https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/canvasDesigner_help.png></div>
 	</div> 
-	<div class="row"> <div class="grid-stack">
+	<div class="row" id="plotcanvas"> <div class="grid-stack">
 	</div></div>
 </div>
 
@@ -164,18 +164,25 @@
 		this.grid = $('.grid-stack').data('gridstack');
 		this.grid.enableMove(false, false);
 
-
 		this.addNewWidget = function () {
 			var images = myFile.previewElement.querySelectorAll("[data-dz-thumbnail]");
 //console.log(myFile);
 			imageId = "image"+num; 
 			var svg = atob(images["0"].currentSrc.replace(/^data:image\/.*;base64,/, ""));
 
-			svg.match(/width="(\d+)/);
-			var wm = RegExp.$1;
+			var wm;
+			if (svg.match(/width="(\d+)/)) {
+				wm = RegExp.$1;
+			} else {
+				wm = 800;
+			}
 
-			svg.match(/height="(\d+)/);
-			var hm = RegExp.$1;
+			var hm;
+			if (svg.match(/height="(\d+)/)) {
+				hm = RegExp.$1;
+			} else {
+				hm = 800;
+			}
 
 //console.log(hm);
 			svg = svg.replace(/.*<svg[^>]+>/, '<svg xmlns="http://www.w3.org/2000/svg" id="'+imageId+'" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " width="'+wm+'" height="'+hm+'" viewBox="0 0 '+wm+' '+hm+'"  version="1.1">');
@@ -193,13 +200,13 @@
 			if (node == null) {
 				node =  { x: 6 * Math.random(), y: 4 * Math.random(), width: 3, height: 3 };
 			}
-//console.log(node);
 
 			var figureTitle = imageId+"_title";
 			var el = this.grid.addWidget($('<div><div class="grid-stack-item-content col-xs-4"><div id='+figureTitle+' align="left" contenteditable="true"  onclick="this.focus\(\);">Edit</div><div id="'+imageId+'_container" style="width: 100%; height: 100%; ">'+svg+'</div></div><div id="dragHandle"></div></div>'), node.x, node.y, node.width, node.height); 
+			el.attr('data-custom-id', imageId);
+//console.log(el);
 
 			el.draggable({ handle: "#dragHandle" });
-//console.log(el);
 
 			return false;
 		}.bind(this);
@@ -230,15 +237,156 @@
 			}
 		});
 
+
 		$('#save-HTML').click( function () {
-			var text = $("#textarea").val();
-			var filename = $("#input-fileName").val()
+			var locsize = new Object();
+			locsize["num"] = num-1;
+	        _.map($('.grid-stack .grid-stack-item:visible'), function (el) {
+	            el       = $(el);
+
+	            var node = el.data('_gridstack_node');
+				var myid = el.attr('data-custom-id');
+				var panZoom = svgPanZoom('#'+myid);
+				locsize[el.attr('data-custom-id')] = 
+	            {
+	                // save additional stuff here, but no pointers or circular stuff!
+	                // You need to save every data that is needed to recreate the node
+	                // If you get the data from the server, it might be only the id
+	                // Sidenode: you also should save the min and max height/widht
+	                id    : el.attr('data-custom-id'),
+					title : $('#'+el.attr('data-custom-id')+'_title').html(),
+					zoom  : panZoom.getZoom(),
+					pan	  : panZoom.getPan(),
+	                x     : node.x,
+	                y     : node.y,
+	                width : node.width,
+	                height: node.height
+	            };
+	        });
+
+			var text = $("#block1").html();
+			text += '<div id=locsize style="display:none;">' + JSON.stringify(locsize) + '</div>';
+
+			for (var i=1; i<num; i++) {
+				var myImg = "image"+i;
+				if (document.getElementById(myImg) == null) {
+					continue;
+				}
+
+				text += '<div id="'+myImg+'_container" style="display:none;">';
+
+				var svg = $('#'+myImg+'_container').html();
+				svg = svg.replace(/<g +id=\"svg-pan-zoom-controls\".+/, '<\/svg>');
+				svg = svg.replace(/<g[^>]+svg-pan-zoom_viewport[^>]+>/, '');
+				text += svg;
+				text += '</div>';
+			}
+
+			text = text + $("#block2").html();
+			text = text.replace(/<!--/g,'').replace(/-->/g,'');
+			text = text.replace(/<!--/g,'').replace(/-->/g,'');
+
 			var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
-			saveAs(blob, filename+".txt");
+			saveAs(blob, "Myplot.html");
 		});
 	});
 
 </script>
+
+<div id="block1" style="display:none;">
+<!--
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.css"/>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/trash.css"/>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/dropzone.css">
+	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/savehtml.css">
+
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/jquery.min.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/jquery-ui.min.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/bootstrap.min.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/lodash.min.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.jQueryUI.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/dropzone.js"></script>
+	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/svg-pan-zoom.js"></script>
+
+</head>
+
+<body>
+<div class="container">
+	<div class="row"> <div class="grid-stack">
+	</div></div>
+</div>
+-->
+</div>
+
+<div id="block2" style="display:none;">
+<!--
+<script type="text/javascript">
+$(function () {
+	var locsize = JSON.parse($('#locsize').html());
+	var imageId;
+
+	var options = {
+		removable: '.trash',
+		removeTimeout: 100,
+		minWidth: 200,
+		verticalMargin: 10,
+		resizable: { handles: 'se, sw' },
+		always_show_resize_handle: true,
+		float: true
+	};
+
+	$('.grid-stack').gridstack(options);
+
+	this.grid = $('.grid-stack').data('gridstack');
+	this.grid.enableMove(false, false);
+
+
+	this.addSVG = function ( mysvg, num ) {
+		imageId = "image"+num; 
+		var svg = mysvg;
+
+		svg.match(/width="(\d+)/);
+		var wm = RegExp.$1;
+
+		svg.match(/height="(\d+)/);
+		var hm = RegExp.$1;
+
+		svg = svg.replace(/.*<svg[^>]+>/, '<svg id="'+imageId+'" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " width="'+wm+'" height="'+hm+'" viewBox="0 0 '+wm+' '+hm+'"  version="1.1">');
+		svg = svg.replace(/<g +id=\"svg-pan-zoom-controls\".+/, '<\/svg>');
+		svg = svg.replace(/<g[^>]+svg-pan-zoom_viewport[^>]+>/, '');
+		svg = svg.replace(/clipPath id=\"/ig, 'clipPath id=\"'+num);
+
+		var node = locsize[imageId];
+
+		var figureTitle = imageId+"_title";
+		var el = this.grid.addWidget($('<div><div class="grid-stack-item-content col-xs-4"><div id='+figureTitle+' align="left" contenteditable="true"  onclick="this.focus\(\);">'+node.title+'</div><div id="'+imageId+'_container" style="width: 100%; height: 100%; ">'+svg+'</div></div><div id="dragHandle"></div></div>'), node.x, node.y, node.width, node.height); 
+
+		el.draggable({ handle: "#dragHandle" });
+
+		return false;
+	}.bind(this);
+
+	for (var i=1; i<=locsize['num']; i++) {
+		var myImg = "image"+i;
+		if (document.getElementById(myImg) == null) {
+			continue;
+		}
+		this.addSVG ($('#'+myImg+'_container').html(), i);
+		var panZoom = svgPanZoom('#'+myImg);
+		panZoom.zoom(locsize[myImg].zoom);
+		panZoom.pan(locsize[myImg].pan);
+	}
+});
+</script>
+</body>
+</html>
+-->
+</div>
 
 </body>
 </html>

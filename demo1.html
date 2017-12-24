@@ -22,8 +22,7 @@
 	<script src="dist/gridstack.js"></script>
 	<script src="dist/gridstack.jQueryUI.js"></script>
 	<script src="dist/dropzone.js"></script>
-<!--	<script src="dist/svg-pan-zoom.js"></script> -->
-	<script src="https://cdn.jsdelivr.net/npm/svg-pan-zoom@3.5.0/dist/svg-pan-zoom.js"></script>
+	<script src="dist/svg-pan-zoom.js"></script>
 	
 
 	<style type="text/css">
@@ -282,6 +281,7 @@
 				svgPanZoom('#'+myImg, {
 					zoomEnabled:true,
 					minZoom:0.1,
+					zoomScaleSensitivity:0.1,
 					fit:true,
 					center:true,
 					controlIconsEnabled:true
