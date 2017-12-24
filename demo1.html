@@ -10,30 +10,30 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>canvasDesigner</title>
 
-	<link rel="stylesheet" href="dist/bootstrap.min.css">
-	<link rel="stylesheet" href="dist/gridstack.css"/>
-	<link rel="stylesheet" href="dist/trash.css"/>
-	<link rel="stylesheet" href="dist/dropzone.css">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/bootstrap.min.css">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/gridstack.css"/>
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/trash.css"/>
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/dropzone.css">
 
-	<script src="dist/jquery.min.js"></script>
-	<script src="dist/jquery-ui.min.js"></script>
-	<script src="dist/bootstrap.min.js"></script>
-	<script src="dist/lodash.min.js"></script>
-	<script src="dist/gridstack.js"></script>
-	<script src="dist/gridstack.jQueryUI.js"></script>
-	<script src="dist/dropzone.js"></script>
-	<script src="dist/svg-pan-zoom.js"></script>
-	
+	<script src="https://baohongz.github.io/canvasDesigner/dist/jquery.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/jquery-ui.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/bootstrap.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/lodash.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/gridstack.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/gridstack.jQueryUI.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/dropzone.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/svg-pan-zoom.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/FileSaver.min.js"></script>
 
 	<style type="text/css">
 		.dropzone {
 			background: white;
 			border-radius: 5px;
-			padding: 0px 10px;
+			padding: 10px 10px;
 			border: 2px dashed rgb(0, 135, 247);
 			border-image: none;
 			max-width: 200px;
-			height: 180px;
+			height: 200px;
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -42,7 +42,8 @@
 		}
 
 		.trash {
-			height: 160px;
+			height: 200px;
+//			background-color: #f5f5f5 !important;
 		}
 
 		.grid-stack .grid-stack-item .grid-stack-item-content,
@@ -73,7 +74,7 @@
 			z-index: 90; width:16px; height: 16px; border-bottom: 0px solid #44c756;
 			border-left: 0px solid #44c765; position: absolute;
 			right: 0px; top: 0px; cursor: move;
-			background-image: url("dist/move.png");
+			background-image: url("https://baohongz.github.io/canvasDesigner/dist/move.png");
 		}
 	</style>
 </head>
@@ -81,26 +82,27 @@
 <body>
 <div class="container">
 	<div class="row no-print">
+		<div align=center>
+			<a class="btn btn-default" id="add-new-Plot">Add Plot</a>
+			<a class="btn btn-default" id="add-new-Control">Add Control</a>
+			<a class="btn btn-default" id="save-HTML">Save HTML</a>
+			<a class="btn btn-default" href=index.html>Index</a>
+			<a class="btn btn-default" href=demo1_saved.html target=_blank>Demo1 Saved HTML</a>
+			<a class="btn btn-default" href=https://baohongz.github.io/canvasDesigner/demo_video.html>Help</a>
+		</div>
+	</div>
+	<div class="row no-print" style="padding-top:5px">
 		<div align=center class="col-xs-4">
 			<FORM class="dropzone needsclick" id="dropzoneUpload" action="/">
 			<div class="dz-message needsclick">Drop a SVG file here or click to upload. Then click "Add Plot" to add to the designing canvas. Note: use Inkscape to convert PNG, JPG, GIF, TIFF to SVG format.</div>
 			</FORM>
-			<a href=index.html>Index</a> | <a href=https://github.com/baohongz/canvasDesigner/tree/gh-pages/SVG>Sample SVG files</a>
 		</div>
 		<div align=center class="col-xs-4">
-			<table border=0>
-			<tr>
-			<td><a class="btn btn-default" id="add-new-Plot">Add Plot</a></td>
-			<td><a class="btn btn-default" id="add-new-Control">Add Control</a></td>
-			</tr>
-			<tr>
-			<td style="padding-top: 8px;" colspan=2><div class="trash"></div></td>
-			</tr>
-			</table>
+			<div class="trash"></div>
 		</div>
-		<div align=center class="col-xs-4"><a href=demo_video.html><img width=240 height=200 src=canvasDesigner_help.png></a></div>
+		<div align=center class="col-xs-4"><img width=240 height=200 src=https://baohongz.github.io/canvasDesigner/canvasDesigner_help.png></div>
 	</div> 
-	<div class="row"> <div class="grid-stack">
+	<div class="row" id="plotcanvas"> <div class="grid-stack">
 	</div></div>
 </div>
 
@@ -131,7 +133,6 @@
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="686" height="686"><path fill="#FFF" paint-order="stroke fill markers" d="M-.5-.5h687v687H-.5z"/><path fill="#FFF" paint-order="stroke fill markers" d="M-.5-.5h687v687H-.5z"/><g><g transform="matrix(1.2238 0 0 1.2238 351.766 365.943)"><image width="525" height="400" preserveAspectRatio="none" transform="translate(-262.5 -200)" xlink:href="https://canvasxpress.org/images/cell.png"/></g><path fill="none" stroke="#330CFF" paint-order="fill stroke markers" d="M251.295 249.202a141.358 141.358 0 0 1-64.01 271.538" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" paint-order="stroke fill markers" d="M182.39 520.788l17.275 14.518-.286-29.37-16.99 14.852z"/><path fill="none" stroke="#330CFF" paint-order="fill stroke markers" d="M514.79 407.352a65.603 65.603 0 0 1-17.804-125.08" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" paint-order="stroke fill markers" d="M501.298 279.954l-22.043-4.827L493.157 301l8.14-21.046z"/><path fill="none" stroke="#330CFF" paint-order="fill stroke markers" d="M363.122 202.244l1.796 315.553" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" stroke="#330CFF" paint-order="fill stroke markers" d="M364.946 522.692l14.588-17.217-29.37.167 14.782 17.05zM531.98 277.37c34.905 0 34.905.237 69.808.237" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" stroke="#330CFF" paint-order="fill stroke markers" d="M606.683 277.607L589.55 262.92v29.373l17.133-14.686zm-482.586-35.3c36.426 0 36.426-1.236 72.85-1.236" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" paint-order="stroke fill markers" d="M201.843 241.07l-17.133-14.685v29.372l17.133-14.686z"/><g transform="matrix(1.2238 0 0 1.2238 224.558 241.07)"><image width="40" height="40" preserveAspectRatio="none" transform="translate(-20 -20)" xlink:href="https://canvasxpress.org/images/prot.png"/></g><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 224.558 241.07)">Gene1</text><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M181.682 518.362a12.238 12.238 0 1 0 0 .013z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 169.444 518.362)">Gene2</text><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M526.4 277.37a12.238 12.238 0 1 0 0 .012z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 514.162 277.37)">Gene3</text><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M544.89 407.266a12.238 12.238 0 1 0 0 .012z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 532.65 407.266)">Receptor Gene4</text><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M375.26 184.425a12.238 12.238 0 1 0 0 .012z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 363.02 184.425)">Gene5</text><g transform="matrix(1.2238 0 0 1.2238 365.075 545.406)"><image width="40" height="40" preserveAspectRatio="none" transform="translate(-20 -20)" xlink:href="https://canvasxpress.org/images/met.png"/></g><g transform="matrix(1.2238 0 0 1.2238 96.487 242.308)"><image width="40" height="40" preserveAspectRatio="none" transform="translate(-20 -20)" xlink:href="https://canvasxpress.org/images/prot7.png"/></g><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 96.487 242.308)">Gene7</text><g transform="matrix(1.2238 0 0 1.2238 629.397 277.607)"><image width="40" height="40" preserveAspectRatio="none" transform="translate(-20 -20)" xlink:href="https://canvasxpress.org/images/dna1.png"/></g><path fill="#FE296C" paint-order="stroke fill markers" d="M206.813 214.788h11.014v2.448h-11.014z"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M219.05 208.99h11.015v8.217H219.05z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" stroke="#000" paint-order="fill stroke markers" d="M231.29 197.334h11.013v19.873H231.29z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#FE296C" stroke="#000" paint-order="fill stroke markers" d="M151.7 486.28h11.013v8.218H151.7z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M163.937 474.626h11.014v19.872h-11.013z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" paint-order="stroke fill markers" d="M176.175 492.08h11.015v2.447h-11.015z"/><path fill="#FE296C" paint-order="stroke fill markers" d="M496.417 251.087h11.014v2.448h-11.013z"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M508.655 227.805h11.015v25.7h-11.015z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" paint-order="stroke fill markers" d="M520.893 251.087h11.015v2.448h-11.015z"/><path fill="#FE296C" stroke="#000" paint-order="fill stroke markers" d="M514.906 363.53h11.014V383.4h-11.014z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M527.144 375.185h11.014v8.217h-11.014z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" paint-order="stroke fill markers" d="M539.382 380.983h11.015v2.448h-11.015z"/><path fill="#FE296C" paint-order="stroke fill markers" d="M345.275 158.142h11.015v2.448h-11.015z"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M357.513 146.516h11.015v14.045h-11.015z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" stroke="#000" paint-order="fill stroke markers" d="M369.752 152.344h11.014v8.217h-11.014z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#FE296C" stroke="#000" paint-order="fill stroke markers" d="M78.742 204.4h11.014v14.044H78.742z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><g><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M90.98 204.4h11.014v14.044H90.98z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><path fill="#A7CE31" stroke="#000" paint-order="fill stroke markers" d="M103.218 198.57h11.014v19.874h-11.014z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M71.39 88.382a12.238 12.238 0 1 0 0 .012z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><text fill="#1D222B" font-family="Arial" font-size="20" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 81.426 88.382)">Gene</text></g><g><path fill="none" paint-order="fill stroke markers" d="M45.2 60.6h107.696v50.178H45.2z"/></g><path fill="none" stroke="#1D222B" paint-order="fill stroke markers" d="M491.403 83.854h19.458" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#1D222B" paint-order="stroke fill markers" d="M515.757 83.364l-17.134-4.895v9.79l17.134-4.896z"/><g><text fill="#1D222B" font-family="Arial" font-size="20" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 520.897 83.364)">Activate</text></g><g><path fill="none" paint-order="fill stroke markers" d="M485.773 59.378H613.05v50.176H485.773z"/></g><g><text fill="#1D222B" font-family="Arial" font-size="20" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 234.28 640.077)">Cool Pathway</text></g><g><path fill="none" paint-order="fill stroke markers" d="M228.773 622.33h161.543v35.492H228.773z"/></g><g><path fill="#FE296C" stroke="#000" paint-order="fill stroke markers" d="M145.064 153.122a6.12 6.12 0 1 0 0 .006z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><text fill="#1D222B" font-family="Arial" font-size="10" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 150.08 153.122)">exp1</text></g><g><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M145.064 171.48a6.12 6.12 0 1 0 0 .005z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><text fill="#1D222B" font-family="Arial" font-size="10" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 150.08 171.48)">exp2</text></g><g><path fill="#A7CE31" stroke="#000" paint-order="fill stroke markers" d="M145.064 189.836a6.12 6.12 0 1 0 0 .006z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><text fill="#1D222B" font-family="Arial" font-size="10" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 150.08 189.836)">exp3</text></g><g><path fill="none" paint-order="fill stroke markers" d="M127.196 135.254h55.072v67.31h-55.072z"/></g><g><path fill="#FFF" paint-order="stroke fill markers" d="M-.5-.5h687v687H-.5z"/><path fill="#FFF" paint-order="stroke fill markers" d="M-.5-.5h687v687H-.5z"/><g><g transform="matrix(1.2238 0 0 1.2238 351.766 365.943)"><image width="525" height="400" preserveAspectRatio="none" transform="translate(-262.5 -200)" xlink:href="https://canvasxpress.org/images/cell.png"/></g><path fill="none" stroke="#330CFF" paint-order="fill stroke markers" d="M251.295 249.202a141.358 141.358 0 0 1-64.01 271.538" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" paint-order="stroke fill markers" d="M182.39 520.788l17.275 14.518-.286-29.37-16.99 14.852z"/><path fill="none" stroke="#330CFF" paint-order="fill stroke markers" d="M514.79 407.352a65.603 65.603 0 0 1-17.804-125.08" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" paint-order="stroke fill markers" d="M501.298 279.954l-22.043-4.827L493.157 301l8.14-21.046z"/><path fill="none" stroke="#330CFF" paint-order="fill stroke markers" d="M363.122 202.244l1.796 315.553" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" stroke="#330CFF" paint-order="fill stroke markers" d="M364.946 522.692l14.588-17.217-29.37.167 14.782 17.05zM531.98 277.37c34.905 0 34.905.237 69.808.237" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" stroke="#330CFF" paint-order="fill stroke markers" d="M606.683 277.607L589.55 262.92v29.373l17.133-14.686zm-482.586-35.3c36.426 0 36.426-1.236 72.85-1.236" stroke-miterlimit="10" stroke-width="3.67143"/><path fill="#330CFF" paint-order="stroke fill markers" d="M201.843 241.07l-17.133-14.685v29.372l17.133-14.686z"/><g transform="matrix(1.2238 0 0 1.2238 224.558 241.07)"><image width="40" height="40" preserveAspectRatio="none" transform="translate(-20 -20)" xlink:href="https://canvasxpress.org/images/prot.png"/></g><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 224.558 241.07)">Gene1</text><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M181.682 518.362a12.238 12.238 0 1 0 0 .013z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 169.444 518.362)">Gene2</text><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M526.4 277.37a12.238 12.238 0 1 0 0 .012z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 514.162 277.37)">Gene3</text><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M544.89 407.266a12.238 12.238 0 1 0 0 .012z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 532.65 407.266)">Receptor Gene4</text><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M375.26 184.425a12.238 12.238 0 1 0 0 .012z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 363.02 184.425)">Gene5</text><g transform="matrix(1.2238 0 0 1.2238 365.075 545.406)"><image width="40" height="40" preserveAspectRatio="none" transform="translate(-20 -20)" xlink:href="https://canvasxpress.org/images/met.png"/></g><g transform="matrix(1.2238 0 0 1.2238 96.487 242.308)"><image width="40" height="40" preserveAspectRatio="none" transform="translate(-20 -20)" xlink:href="https://canvasxpress.org/images/prot7.png"/></g><text fill="#1D222B" font-family="Arial" font-size="25" text-decoration="normal" text-anchor="middle" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 96.487 242.308)">Gene7</text><g transform="matrix(1.2238 0 0 1.2238 629.397 277.607)"><image width="40" height="40" preserveAspectRatio="none" transform="translate(-20 -20)" xlink:href="https://canvasxpress.org/images/dna1.png"/></g><path fill="#FE296C" paint-order="stroke fill markers" d="M206.813 214.788h11.014v2.448h-11.014z"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M219.05 208.99h11.015v8.217H219.05z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" stroke="#000" paint-order="fill stroke markers" d="M231.29 197.334h11.013v19.873H231.29z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#FE296C" stroke="#000" paint-order="fill stroke markers" d="M151.7 486.28h11.013v8.218H151.7z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M163.937 474.626h11.014v19.872h-11.013z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" paint-order="stroke fill markers" d="M176.175 492.08h11.015v2.447h-11.015z"/><path fill="#FE296C" paint-order="stroke fill markers" d="M496.417 251.087h11.014v2.448h-11.013z"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M508.655 227.805h11.015v25.7h-11.015z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" paint-order="stroke fill markers" d="M520.893 251.087h11.015v2.448h-11.015z"/><path fill="#FE296C" stroke="#000" paint-order="fill stroke markers" d="M514.906 363.53h11.014V383.4h-11.014z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M527.144 375.185h11.014v8.217h-11.014z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" paint-order="stroke fill markers" d="M539.382 380.983h11.015v2.448h-11.015z"/><path fill="#FE296C" paint-order="stroke fill markers" d="M345.275 158.142h11.015v2.448h-11.015z"/><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M357.513 146.516h11.015v14.045h-11.015z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#A7CE31" stroke="#000" paint-order="fill stroke markers" d="M369.752 152.344h11.014v8.217h-11.014z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#FE296C" stroke="#000" paint-order="fill stroke markers" d="M78.742 204.4h11.014v14.044H78.742z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/><g><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M90.98 204.4h11.014v14.044H90.98z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><path fill="#A7CE31" stroke="#000" paint-order="fill stroke markers" d="M103.218 198.57h11.014v19.874h-11.014z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><path fill="#F00" stroke="#000" paint-order="fill stroke markers" d="M71.39 88.382a12.238 12.238 0 1 0 0 .012z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><text fill="#1D222B" font-family="Arial" font-size="20" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 81.426 88.382)">Gene</text></g><g><path fill="none" paint-order="fill stroke markers" d="M45.2 60.6h107.696v50.178H45.2z"/></g><path fill="none" stroke="#1D222B" paint-order="fill stroke markers" d="M491.403 83.854h19.458" stroke-miterlimit="10" stroke-width="1.22381"/><path fill="#1D222B" paint-order="stroke fill markers" d="M515.757 83.364l-17.134-4.895v9.79l17.134-4.896z"/><g><text fill="#1D222B" font-family="Arial" font-size="20" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 520.897 83.364)">Activate</text></g><g><path fill="none" paint-order="fill stroke markers" d="M485.773 59.378H613.05v50.176H485.773z"/></g><g><text fill="#1D222B" font-family="Arial" font-size="20" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 234.28 640.077)">Cool Pathway</text></g><g><path fill="none" paint-order="fill stroke markers" d="M228.773 622.33h161.543v35.492H228.773z"/></g><g><path fill="#FE296C" stroke="#000" paint-order="fill stroke markers" d="M145.064 153.122a6.12 6.12 0 1 0 0 .006z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><text fill="#1D222B" font-family="Arial" font-size="10" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 150.08 153.122)">exp1</text></g><g><path fill="#487EB6" stroke="#000" paint-order="fill stroke markers" d="M145.064 171.48a6.12 6.12 0 1 0 0 .005z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><text fill="#1D222B" font-family="Arial" font-size="10" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 150.08 171.48)">exp2</text></g><g><path fill="#A7CE31" stroke="#000" paint-order="fill stroke markers" d="M145.064 189.836a6.12 6.12 0 1 0 0 .006z" stroke-linejoin="mitter" stroke-miterlimit="10" stroke-width="1.22381"/></g><g><text fill="#1D222B" font-family="Arial" font-size="10" text-decoration="normal" dominant-baseline="central" transform="matrix(1.2238 0 0 1.2238 150.08 189.836)">exp3</text></g><g><path fill="none" paint-order="fill stroke markers" d="M127.196 135.254h55.072v67.31h-55.072z"/></g></g></g></g></svg>
 </div>
-
 <script type="text/javascript">
 	$(function () {
 		var myFile;
@@ -152,7 +153,6 @@
 					myFile = file;
 //console.log(myFile);
 					var img = $(file.previewTemplate).find("img");
-// console.log(img);
 					img[0].width = 120;
 					img[0].height = 120;
 	  			});
@@ -189,56 +189,26 @@
 		this.grid = $('.grid-stack').data('gridstack');
 		this.grid.enableMove(false, false);
 
-
 		this.addSVG = function ( mysvg ) {
 			imageId = "image"+num; 
 			var svg = mysvg;
 
-			svg.match(/width="(\d+)/);
-			var wm = RegExp.$1;
-
-			svg.match(/height="(\d+)/);
-			var hm = RegExp.$1;
-
-			svg = svg.replace(/.*<svg[^>]+>/, '<svg id="'+imageId+'" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " width="'+wm+'" height="'+hm+'" viewBox="0 0 '+wm+' '+hm+'"  version="1.1">');
-			svg = svg.replace(/<g +id=\"svg-pan-zoom-controls\".+/, '<\/svg>');
-			svg = svg.replace(/<g[^>]+svg-pan-zoom_viewport[^>]+>/, '');
-			svg = svg.replace(/clipPath id=\"/ig, 'clipPath id=\"'+num);
-
-
-			num += 1;
-
-
-			var node = this.items.pop();
-
-			if (node == null) {
-				node =  { x: 6 * Math.random(), y: 4 * Math.random(), width: 3, height: 3 };
+			var wm;
+			if (svg.match(/width="(\d+)/)) {
+				wm = RegExp.$1;
+			} else {
+				wm = 800;
 			}
 
-			var figureTitle = imageId+"_title";
-			var el = this.grid.addWidget($('<div><div class="grid-stack-item-content col-xs-4"><div id='+figureTitle+' align="left" contenteditable="true"  onclick="this.focus\(\);">Edit</div><div id="'+imageId+'_container" style="width: 100%; height: 100%; ">'+svg+'</div></div><div id="dragHandle"></div></div>'), node.x, node.y, node.width, node.height); 
-
-			el.draggable({ handle: "#dragHandle" });
-//console.log(el);
-
-			return false;
-		}.bind(this);
-
-
-		this.addNewWidget = function () {
-			var images = myFile.previewElement.querySelectorAll("[data-dz-thumbnail]");
-//console.log(myFile);
-			imageId = "image"+num; 
-			var svg = atob(images["0"].currentSrc.replace(/^data:image\/.*;base64,/, ""));
-
-			svg.match(/width="(\d+)/);
-			var wm = RegExp.$1;
-
-			svg.match(/height="(\d+)/);
-			var hm = RegExp.$1;
+			var hm;
+			if (svg.match(/height="(\d+)/)) {
+				hm = RegExp.$1;
+			} else {
+				hm = 800;
+			}
 
 //console.log(hm);
-			svg = svg.replace(/.*<svg[^>]+>/, '<svg id="'+imageId+'" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " width="'+wm+'" height="'+hm+'" viewBox="0 0 '+wm+' '+hm+'"  version="1.1">');
+			svg = svg.replace(/.*<svg[^>]+>/, '<svg xmlns="http://www.w3.org/2000/svg" id="'+imageId+'" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " width="'+wm+'" height="'+hm+'" viewBox="0 0 '+wm+' '+hm+'"  version="1.1">');
 			svg = svg.replace(/<g +id=\"svg-pan-zoom-controls\".+/, '<\/svg>');
 			svg = svg.replace(/<g[^>]+svg-pan-zoom_viewport[^>]+>/, '');
 			svg = svg.replace(/clipPath id=\"/ig, 'clipPath id=\"'+num);
@@ -253,17 +223,29 @@
 			if (node == null) {
 				node =  { x: 6 * Math.random(), y: 4 * Math.random(), width: 3, height: 3 };
 			}
-//console.log(node);
 
-			var el = this.grid.addWidget($('<div><div class="grid-stack-item-content col-xs-4"><div align="left" contenteditable="true"  onclick="this.focus\(\);">Edit</div><div id="'+imageId+'_container" style="width: 100%; height: 100%; ">'+svg+'</div></div><div id="dragHandle"></div></div>'), node.x, node.y, node.width, node.height); 
+			var figureTitle = imageId+"_title";
+			var el = this.grid.addWidget($('<div><div class="grid-stack-item-content col-xs-4"><div id='+figureTitle+' align="left" contenteditable="true"  onclick="this.focus\(\);">Edit</div><div id="'+imageId+'_container" style="width: 100%; height: 100%; ">'+svg+'</div></div><div id="dragHandle"></div></div>'), node.x, node.y, node.width, node.height); 
+			el.attr('data-custom-id', imageId);
+//console.log(el);
 
 			el.draggable({ handle: "#dragHandle" });
-//console.log(el);
 
 			return false;
 		}.bind(this);
 
+		this.addNewWidget = function () {
+			var images = myFile.previewElement.querySelectorAll("[data-dz-thumbnail]");
+//console.log(myFile);
+			imageId = "image"+num; 
+			var svg = atob(images["0"].currentSrc.replace(/^data:image\/.*;base64,/, ""));
+
+			this.addSVG(svg);
+
+		}.bind(this);
+
 		$('#add-new-Plot').click(this.addNewWidget);
+
 
 		$('#add-new-Control').click( function () {
 			for (var i=1; i<num; i++) {
@@ -276,8 +258,6 @@
 					continue;
 				}
 
-//console.log(myImg);
-
 				svgPanZoom('#'+myImg, {
 					zoomEnabled:true,
 					minZoom:0.1,
@@ -288,7 +268,6 @@
 				});
 			}
 		});
-
 		this.addSVG ($('#violin').html());
 		this.addSVG ($('#heatmap').html());
 		this.addSVG ($('#scatter3d').html());
@@ -328,9 +307,168 @@
 		$('#image4_title').text("F");
 		$('#image5_title').text("A");
 		$('#image6_title').text("E");
+
+		$('#save-HTML').click( function () {
+			var locsize = new Object();
+			locsize["num"] = num-1;
+	        _.map($('.grid-stack .grid-stack-item'), function (el) {
+	            el       = $(el);
+
+	            var node = el.data('_gridstack_node');
+				var myid = el.attr('data-custom-id');
+				var panZoom = svgPanZoom('#'+myid);
+				locsize[el.attr('data-custom-id')] = 
+	            {
+	                // save additional stuff here, but no pointers or circular stuff!
+	                // You need to save every data that is needed to recreate the node
+	                // If you get the data from the server, it might be only the id
+	                // Sidenode: you also should save the min and max height/widht
+	                id    : el.attr('data-custom-id'),
+					title : $('#'+el.attr('data-custom-id')+'_title').html(),
+					zoom  : panZoom.getZoom(),
+					pan	  : panZoom.getPan(),
+	                x     : node.x,
+	                y     : node.y,
+	                width : node.width,
+	                height: node.height
+	            };
+	        });
+
+			var text = $("#block1").html();
+			text += '<div id=locsize style="display:none;">' + JSON.stringify(locsize) + '</div>';
+
+			for (var i=1; i<num; i++) {
+				var myImg = "image"+i;
+				if (document.getElementById(myImg) == null) {
+					continue;
+				}
+
+				text += '<div id="'+myImg+'_container" style="display:none;">';
+
+				var svg = $('#'+myImg+'_container').html();
+				svg = svg.replace(/<g +id=\"svg-pan-zoom-controls\".+/, '<\/svg>');
+				svg = svg.replace(/<g[^>]+svg-pan-zoom_viewport[^>]+>/, '');
+				text += svg;
+				text += '</div>';
+			}
+
+			text = text + $("#block2").html();
+			text = text.replace(/<!--/g,'').replace(/-->/g,'');
+			text = text.replace(/<!--/g,'').replace(/-->/g,'');
+
+			var blob = new Blob([text], {type: "text/plain;charset=utf-8"});
+			saveAs(blob, "Myplot.html");
+		});
 	});
 
 </script>
 
+<div id="block1" style="display:none;">
+<!--
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/bootstrap.min.css">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/gridstack.css"/>
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/trash.css"/>
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/dropzone.css">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/savehtml.css">
+
+	<script src="https://baohongz.github.io/canvasDesigner/dist/jquery.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/jquery-ui.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/bootstrap.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/lodash.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/gridstack.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/gridstack.jQueryUI.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/dropzone.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/svg-pan-zoom.js"></script>
+
+</head>
+
+<body>
+<div class="container">
+	<div class="row"> <div class="grid-stack">
+	</div></div>
+	<a class="btn btn-default btn-sm" id="toggle-control">Show/Hide Control</a>
+</div>
+-->
+</div>
+
+<div id="block2" style="display:none;">
+<!--
+<script type="text/javascript">
+$(function () {
+	$('#toggle-control').click( function () {
+		$(".svg-pan-zoom-control").toggle();
+		$(".ui-draggable-handle").toggle();
+	});
+
+	var locsize = JSON.parse($('#locsize').html());
+	var imageId;
+
+	var options = {
+		removable: '.trash',
+		removeTimeout: 100,
+		minWidth: 200,
+		verticalMargin: 10,
+		resizable: { handles: 'se, sw' },
+//		always_show_resize_handle: true,
+		float: true
+	};
+
+	$('.grid-stack').gridstack(options);
+
+	this.grid = $('.grid-stack').data('gridstack');
+	this.grid.enableMove(false, false);
+
+
+	this.addSVG = function ( mysvg, num ) {
+		imageId = "image"+num; 
+		var svg = mysvg;
+
+		svg.match(/width="(\d+)/);
+		var wm = RegExp.$1;
+
+		svg.match(/height="(\d+)/);
+		var hm = RegExp.$1;
+
+		svg = svg.replace(/.*<svg[^>]+>/, '<svg id="'+imageId+'" style="display: inline; width: inherit; min-width: inherit; max-width: inherit; height: inherit; min-height: inherit; max-height: inherit; " width="'+wm+'" height="'+hm+'" viewBox="0 0 '+wm+' '+hm+'"  version="1.1">');
+		svg = svg.replace(/<g +id=\"svg-pan-zoom-controls\".+/, '<\/svg>');
+		svg = svg.replace(/<g[^>]+svg-pan-zoom_viewport[^>]+>/, '');
+		svg = svg.replace(/clipPath id=\"/ig, 'clipPath id=\"'+num);
+
+		var node = locsize[imageId];
+
+		var figureTitle = imageId+"_title";
+		var el = this.grid.addWidget($('<div><div class="grid-stack-item-content col-xs-4"><div id='+figureTitle+' align="left" contenteditable="true"  onclick="this.focus\(\);">'+node.title+'</div><div id="'+imageId+'_container" style="width: 100%; height: 100%; ">'+svg+'</div></div><div id="dragHandle"></div></div>'), node.x, node.y, node.width, node.height); 
+
+		el.draggable({ handle: "#dragHandle" });
+
+		return false;
+	}.bind(this);
+
+	for (var i=1; i<=locsize['num']; i++) {
+		var myImg = "image"+i;
+		if (document.getElementById(myImg) == null) {
+			continue;
+		}
+		this.addSVG ($('#'+myImg+'_container').html(), i);
+		var panZoom = svgPanZoom('#'+myImg, {
+                    zoomEnabled:true,
+                    minZoom:0.1,
+                    zoomScaleSensitivity:0.1,
+                    fit:true,
+                    center:true,
+                    controlIconsEnabled:true
+                });
+		panZoom.zoom(locsize[myImg].zoom);
+		panZoom.pan(locsize[myImg].pan);
+	}
+});
+</script>
+</body>
+</html>
+-->
+</div>
 </body>
 </html>
