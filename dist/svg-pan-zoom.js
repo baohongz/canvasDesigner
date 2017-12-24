@@ -43,7 +43,6 @@ module.exports = {
     }
 
     // Zoom Group
-	// Baohong
     var zoomGroup = document.createElementNS(SvgUtils.svgNS, 'g');
     zoomGroup.setAttribute('id', 'svg-pan-zoom-controls');
     zoomGroup.setAttribute('transform', 'translate(0  0) scale(0.6)'); // Baohong: move to top-left 

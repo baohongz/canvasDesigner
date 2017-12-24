@@ -10,20 +10,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>canvasDesigner</title>
 
-	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.css"/>
-	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/trash.css"/>
-	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/dropzone.css">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/bootstrap.min.css">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/gridstack.css"/>
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/trash.css"/>
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/dropzone.css">
 
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/jquery.min.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/jquery-ui.min.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/bootstrap.min.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/lodash.min.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.jQueryUI.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/dropzone.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/svg-pan-zoom.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/FileSaver.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/jquery.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/jquery-ui.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/bootstrap.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/lodash.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/gridstack.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/gridstack.jQueryUI.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/dropzone.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/svg-pan-zoom.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/FileSaver.min.js"></script>
 
 	<style type="text/css">
 		.dropzone {
@@ -74,7 +74,7 @@
 			z-index: 90; width:16px; height: 16px; border-bottom: 0px solid #44c756;
 			border-left: 0px solid #44c765; position: absolute;
 			right: 0px; top: 0px; cursor: move;
-			background-image: url("https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/move.png");
+			background-image: url("https://baohongz.github.io/canvasDesigner/dist/move.png");
 		}
 	</style>
 </head>
@@ -101,7 +101,7 @@
 		<div align=center class="col-xs-4">
 			<div class="trash"></div>
 		</div>
-		<div align=center class="col-xs-4"><img width=240 height=200 src=https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/canvasDesigner_help.png></div>
+		<div align=center class="col-xs-4"><img width=240 height=200 src=https://baohongz.github.io/canvasDesigner/canvasDesigner_help.png></div>
 	</div> 
 	<div class="row" id="plotcanvas"> <div class="grid-stack">
 	</div></div>
@@ -230,6 +230,7 @@
 				svgPanZoom('#'+myImg, {
 					zoomEnabled:true,
 					minZoom:0.1,
+					zoomScaleSensitivity:0.1,
 					fit:true,
 					center:true,
 					controlIconsEnabled:true
@@ -298,20 +299,20 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.css"/>
-	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/trash.css"/>
-	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/dropzone.css">
-	<link rel="stylesheet" href="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/savehtml.css">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/bootstrap.min.css">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/gridstack.css"/>
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/trash.css"/>
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/dropzone.css">
+	<link rel="stylesheet" href="https://baohongz.github.io/canvasDesigner/dist/savehtml.css">
 
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/jquery.min.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/jquery-ui.min.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/bootstrap.min.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/lodash.min.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/gridstack.jQueryUI.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/dropzone.js"></script>
-	<script src="https://cdn.rawgit.com/baohongz/canvasDesigner/gh-pages/dist/svg-pan-zoom.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/jquery.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/jquery-ui.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/bootstrap.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/lodash.min.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/gridstack.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/gridstack.jQueryUI.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/dropzone.js"></script>
+	<script src="https://baohongz.github.io/canvasDesigner/dist/svg-pan-zoom.js"></script>
 
 </head>
 
@@ -319,6 +320,7 @@
 <div class="container">
 	<div class="row"> <div class="grid-stack">
 	</div></div>
+	<a class="btn btn-default btn-sm" id="toggle-control">Show/Hide Control</a>
 </div>
 -->
 </div>
@@ -327,6 +329,11 @@
 <!--
 <script type="text/javascript">
 $(function () {
+	$('#toggle-control').click( function () {
+		$(".svg-pan-zoom-control").toggle();
+		$(".ui-draggable-handle").toggle();
+	});
+
 	var locsize = JSON.parse($('#locsize').html());
 	var imageId;
 
@@ -336,7 +343,7 @@ $(function () {
 		minWidth: 200,
 		verticalMargin: 10,
 		resizable: { handles: 'se, sw' },
-		always_show_resize_handle: true,
+//		always_show_resize_handle: true,
 		float: true
 	};
 
@@ -377,7 +384,14 @@ $(function () {
 			continue;
 		}
 		this.addSVG ($('#'+myImg+'_container').html(), i);
-		var panZoom = svgPanZoom('#'+myImg);
+		var panZoom = svgPanZoom('#'+myImg, {
+                    zoomEnabled:true,
+                    minZoom:0.1,
+                    zoomScaleSensitivity:0.1,
+                    fit:true,
+                    center:true,
+                    controlIconsEnabled:true
+                });
 		panZoom.zoom(locsize[myImg].zoom);
 		panZoom.pan(locsize[myImg].pan);
 	}
