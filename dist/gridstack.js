@@ -365,7 +365,8 @@
             this._addedNodes.push(_.clone(node));
         }
 
-        this._fixCollisions(node);
+// Baohong: don't fixCollisions automatically
+//        this._fixCollisions(node);
         this._packNodes();
         this._notify();
         return node;
@@ -484,7 +485,8 @@
 
         node = this._prepareNode(node, resizing);
 
-        this._fixCollisions(node);
+// Baohong: don't fixCollisions automatically
+//        this._fixCollisions(node);
         if (!noPack) {
             this._packNodes();
             this._notify();
@@ -568,7 +570,7 @@
         var isNested = this.container.closest('.' + opts.itemClass).length > 0;
 
         this.opts = _.defaults(opts || {}, {
-            width: parseInt(this.container.attr('data-gs-width')) || 12,
+            width: parseInt(this.container.attr('data-gs-width')) || 48, // Baohong: match css
             height: parseInt(this.container.attr('data-gs-height')) || 0,
             itemClass: 'grid-stack-item',
             placeholderClass: 'grid-stack-placeholder',
